@@ -3,7 +3,7 @@ import Card  from '../Card/Card'
 const DisplayCards = ({ cards, onCardClick }) => {
     return (
         <div className="card-grid">
-            {cards.map(card => (
+            {cards.map((card) => (
                 <Card 
                     key={card.id}
                 />
@@ -11,3 +11,5 @@ const DisplayCards = ({ cards, onCardClick }) => {
         </div>
     )
 }
+
+export default DisplayCards;
