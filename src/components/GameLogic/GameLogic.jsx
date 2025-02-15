@@ -66,7 +66,9 @@ const GameLogic = () => {
 
     return (
         <div>
-            
+            <Scoreboard currentScore={currentScore} bestScore={bestScore}/>
+
+            <DisplayCards cards={cards} onCardClick={handleCardClick} />
         </div>
     )
 }
