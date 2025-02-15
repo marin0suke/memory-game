@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchImages } from '../utils.api';
+import { fetchImages } from "../utils/api";
 
 const useImages = () => {
     const [images, setImages] = useState([]); // stores API response.
@@ -10,9 +10,11 @@ const useImages = () => {
         const getImages = async () => {
             try {
                 const data = await fetchImages();
+                console.log("api response: ", data);
+
                 setImages(data); // updates images state.
             } catch (err) {
-                setError(err.messages);
+                setError(err.message);
             } finally {
                 setLoading(false); // mark loading as complete.
             }

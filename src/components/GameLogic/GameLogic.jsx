@@ -1,28 +1,21 @@
 import { useState, useEffect } from 'react'
 import DisplayCards from '../DisplayCards/DisplayCards'
 import Scoreboard from '../Scoreboard/Scoreboard'
+import useImages from '../../hooks/useImages'
 
 const GameLogic = () => {
-    const [ cards, setCards ] = useState([]);
+    const { images, loading, error } = useImages(); // custom hook to get images.
+    const [ cards, setCards ] = useState([]); // store shuffled cards separately.
     const [ clickedCards, setClickedCards ] = useState([]);
     const [ currentScore, setCurrentScore ] = useState(0);
     const [ bestScore, setBestScore ] = useState(0);
 
+
     useEffect(() => {
-        const fetchCards = async () => {
-            try {
-                const response = await fetch("api goes here");
-                if (!response.ok) throw new Error("Failed to fetch data");
-                const data = await response.json();
-
-                setCards(data); // assuming data is an array of objects - { imageURL, descreiption, id }
-            } catch (error) {
-                console.log("Error fetching card data: ", error);
-            }
-        };
-
-        fetchCards();
-    }, []) // no dependencies - runs once on mount.
+        if (images.length > 0) {
+            setCards(images);
+        }
+    }, [images]) // syncs local cards with fetched images.
 
     const shuffleCards = () => { 
         setCards((prevCards) => {
