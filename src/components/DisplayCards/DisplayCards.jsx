@@ -1,4 +1,5 @@
 import Card from "../Card/Card";
+import "./DisplayCards.css";
 
 const DisplayCards = ({ cards, onCardClick }) => {
     if (!cards || cards.length == 0) {
