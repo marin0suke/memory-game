@@ -9,20 +9,17 @@ const useImages = () => {
     useEffect(() => {
         const getImages = async () => {
             try {
-                const data = await fetchImages();
-                console.log("api response: ", data);
+                const requests = Array.from({ length: 16 }).map(() => fetchImages());
+                const responses = await Promise.all(requests);
 
-                if (data.meals) {
-                    const formatted = data.meals.map(meal => ({
+                const formattedImages = responses.flatMap(data => 
+                    data?.meals?.map(meal => ({
                         id: meal.idMeal,
                         imageUrl: meal.strMealThumb,
                         description: meal.strMeal,
-                    }));
-                    console.log("Formatted images:", formatted);
-                    setImages(formatted); // updates images state.
-                } else {
-                    throw new Error("Invalid API response format");
-                }
+                    })) || []
+                )
+                setImages(formattedImages.slice(0, 16)); // updates images state.  
             } catch (err) {
                 setError(err.message);
             } finally {
