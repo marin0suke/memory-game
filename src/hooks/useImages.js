@@ -12,7 +12,17 @@ const useImages = () => {
                 const data = await fetchImages();
                 console.log("api response: ", data);
 
-                setImages(data); // updates images state.
+                if (data.meals) {
+                    const formatted = data.meals.map(meal => ({
+                        id: meal.idMeal,
+                        imageUrl: meal.strMealThumb,
+                        description: meal.strMeal,
+                    }));
+                    console.log("Formatted images:", formatted);
+                    setImages(formatted); // updates images state.
+                } else {
+                    throw new Error("Invalid API response format");
+                }
             } catch (err) {
                 setError(err.message);
             } finally {
