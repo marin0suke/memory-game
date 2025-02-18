@@ -4,20 +4,21 @@ import Scoreboard from '../Scoreboard/Scoreboard'
 import useImages from '../../hooks/useImages'
 
 const GameLogic = () => {
-    const { images, loading, error } = useImages(); // custom hook to get images.
-    const [ cards, setCards ] = useState([]); // store shuffled cards separately.
+    const { images, loading, error } = useImages(); // custom hook to get 16 images.
+
+    const [ cards, setCards ] = useState([]); // local state for game logic.
     const [ clickedCards, setClickedCards ] = useState([]);
     const [ currentScore, setCurrentScore ] = useState(0);
     const [ bestScore, setBestScore ] = useState(0);
 
 
-    useEffect(() => {
+    useEffect(() => { // sync local cards with fetched images.
         if (images.length > 0) {
             setCards(images);
         }
     }, [images]) // syncs local cards with fetched images.
 
-    const shuffleCards = () => { 
+    const shuffleCards = () => { // fisher-yates shuffle.
         setCards((prevCards) => {
             let shuffled = [...prevCards];
                 for (let i = shuffled.length - 1; i > 0; i--) { // decrement 
