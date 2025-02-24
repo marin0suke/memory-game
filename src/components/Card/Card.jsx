@@ -1,4 +1,4 @@
-
+import "./Card.css";
 
 const Card = ({ imageUrl, description, onClick }) => (
     <div className="card" onClick={onClick}>
